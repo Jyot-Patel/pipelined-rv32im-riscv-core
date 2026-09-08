@@ -1,0 +1,28 @@
+FREEZE MANIFEST — RV32IM 5-stage core, 2026-09-08
+================================================
+
+TOP: soc_top | SINGULAR: ../soc_top_single.sv (2128 L, md5 f2826dd535e412d21abf7e67ebe648aa)
+CORE: ../rtl/core/rv32i_core.sv (615 L, md5 8adfd34a1111da7fa2d9d2330bd43b80)
+
+RTL line counts (frozen):
+  rv32i_pkg 114 | soc_top 92 | alu 38 | branch_predictor 81 | decoder 202
+  hazard_unit 181 | muldiv_unit 182 | regfile 63
+  mux_a 26 | mux_b 26 | imm_sel 23 | pc_redirect 15 | pc_sel 32 | wb_sel 33
+  data_mem 37 | instr_mem 27
+  ex_mem 47 | id_ex 131 | if_id 31 | mem_wb 35
+TBs: soc_final 777 | load_store_offsets 326 | muldiv_unit 619 | hazards 576 | branch_predictor 460
+
+DEVICE: Cyclone II EP2C35F672C6 (rv32i_core.qsf, soc_top.qsf, test_soc_single.qsf)
+TOOLS: Quartus II 13.0sp1 (analysis+elaboration 0 errors) | ModelSim-Altera 10.1d | iverilog fallback
+
+FROZEN RESULTS:
+  tb_soc_final 50/55 (P1 33/33, P2 8/11, P3 7/11) | lanes 21/21
+  soc_test.log 29/29 | core_final.log 38/38 | muldiv_final.log 20/21 (MULHSU open)
+  map reports: analysis-only, N/A until Partition Merge (no Fmax/LE in freeze)
+
+REPRO:
+  cd simulation/modelsim && do run_soc_final.do
+  iverilog -g2012 -I rtl/common rtl/common/rv32i_pkg.sv rtl/pipeline/*.sv rtl/units/*.sv rtl/mux/*.sv rtl/mem/*.sv rtl/core/*.sv tb/tb_soc_final.sv -o tb_soc_final && vvp tb_soc_final
+
+OPEN (frozen): 5 tb_soc_final timing fails (P2 x22/x30/x25, P3 x29/x24) + MULHSU corner + stale coverage_transcript.txt + no full fit + no privileged ISA.
+REF: ../currentStatus.md, ../bugFixed/, ../simulation/*.log, 03_test_results.md

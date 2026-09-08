@@ -1,0 +1,5 @@
+*.log
+*.mp4
+idk/
+__pycache__/
+work/

@@ -1,0 +1,12 @@
+pc relative instructions testing against spike is pending...
+ex. aiupc, jal
+NOTE : branch : because target is calculated with help of current pc
+
+because spike uses default program execution start from 0x80000000
+ but our program.mem start from addr 0x00000000
+
+so our pc techically starts at 0 addr..  
+
+main problem : memory reference model mismatch
+
+WILL FIX LATER..  just spike tool level problem, NOT RTL BUG.
